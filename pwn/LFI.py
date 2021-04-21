@@ -8,6 +8,9 @@
 # Linux file paths are taken from:
 #   https://book.hacktricks.xyz/pentesting-web/file-inclusion/lfi-linux-list
 
+# TODO
+# - add support to print out contents
+
 import requests
 import argparse
 
@@ -15,10 +18,11 @@ import argparse
 
 options = {}
 platform = 'windows'
+
 session = requests.session()
 session.proxies = {
-        'http' : "127.0.0.1:8080",
-        'https' : "127.0.0.1:8080"
+        'http' : "socks5://127.0.0.1:8082",
+        'https' : "socks5://127.0.0.1:8082"
         }
 session.timeout = 3
 
@@ -41,7 +45,7 @@ def parse_args():
 # Returns true if the file was found on the server
 def test_file(f):
     url = options['url'] + f
-    res = session.get(url)
+    res = session.head(url)
     if 200 <= res.status_code and res.status_code < 400:
         return True
     return False
