@@ -1,0 +1,1 @@
+subnet="192.168.119";for i in {0..255}; do ping -i .3 -w 1 "${subnet}.${i}" 2>&1 >/dev/null && echo "${subnet}.${i} is reachable";done

